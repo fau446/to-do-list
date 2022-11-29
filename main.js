@@ -1,0 +1,1 @@
+(()=>{let e=document.querySelector(".content"),t=document.createElement("p");t.innerText="hello",e.appendChild(t)})();
