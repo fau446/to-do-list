@@ -1,6 +1,4 @@
 import task from './modules/task.js'
+import project from './modules/project.js'
 
-let one = task("Clean Bed")
-let two = task("Workout")
-console.log(one.title)
-console.log(two.title)
+//title, description, dueDate, priority, complete
