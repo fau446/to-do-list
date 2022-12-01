@@ -8,10 +8,17 @@ const project = (name) => {
     tasks.push(newTask)
   }
 
+  function delTask(index) {
+    tasks.splice(index, 1)
+  }
+
+  const getTasks = () => tasks
+
   return {
     name,
-    tasks,
-    addTask
+    addTask,
+    delTask,
+    getTasks
   }
 }
 
