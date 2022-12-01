@@ -1,4 +1,7 @@
 import task from './modules/task.js'
 import project from './modules/project.js'
+import appController from './modules/appController.js'
 
-//title, description, dueDate, priority, complete
+let app = appController()
+
+// let screen = screenController()
