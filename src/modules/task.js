@@ -1,4 +1,4 @@
-const task = (title, description, dueDate, priority, complete) => {
+const task = (title, description, dueDate, priority, complete=false) => {
 
   return {
     title,

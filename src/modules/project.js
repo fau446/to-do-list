@@ -3,8 +3,8 @@ import task from './task.js'
 const project = (name) => {
   let tasks = []
 
-  function addTask(title, description, dueDate, priority, complete) {
-    let newTask = task(title, description, dueDate, priority, complete)
+  function addTask(title, description, dueDate, priority) {
+    let newTask = task(title, description, dueDate, priority)
     tasks.push(newTask)
   }
 
