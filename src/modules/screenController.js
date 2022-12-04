@@ -9,6 +9,7 @@ const screenController = () => {
   let addProjectButton = document.querySelector('.add-project-btn')
   let addTaskButton = document.querySelector('.add-task-btn')
   let modalOverlay = document.querySelector('.overlay')
+  let closeModalButtons = document.querySelectorAll('.close-modal')
 
   //bind events
   addProjectButton.addEventListener('click', _addProject)
@@ -17,7 +18,9 @@ const screenController = () => {
   //modal events
   addTaskButton.addEventListener('click', _openAddTaskModal)
   modalOverlay.addEventListener('click', _closeModal)
-
+  closeModalButtons.forEach((button) => {
+    button.addEventListener('click', _closeModal)
+  })
 
   function _loadProjectList() {
     _resetProjectList()
