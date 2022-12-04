@@ -8,20 +8,23 @@ const screenController = () => {
   let addProjectInput = document.querySelector('.add-project-input')
   let addProjectButton = document.querySelector('.add-project-btn')
   let addTaskButton = document.querySelector('.add-task-btn')
+  let addTaskSubmitButton = document.querySelector('.submit-add-task')
   let modalOverlay = document.querySelector('.overlay')
   let closeModalButtons = document.querySelectorAll('.close-modal')
 
   //bind events
   addProjectButton.addEventListener('click', _addProject)
-  addProjectInput.addEventListener('keyup', _submitInput)
+  addProjectInput.addEventListener('keyup', _submitProjectInput)
   
   //modal events
   addTaskButton.addEventListener('click', _openAddTaskModal)
+  addTaskSubmitButton.addEventListener('click', _submitAddTaskInputs)
   modalOverlay.addEventListener('click', _closeModal)
   closeModalButtons.forEach((button) => {
     button.addEventListener('click', _closeModal)
   })
 
+  //projects functions
   function _loadProjectList() {
     _resetProjectList()
     let projects = app.getProjects()
@@ -94,6 +97,14 @@ const screenController = () => {
     _loadProjectList()
   }
 
+  function _submitProjectInput(event) {
+    if (event.keyCode === 13) {
+      event.preventDefault()
+      _addProject()
+    }
+  }
+
+  //tasks functions
   function _loadTasks() {
     let projectNameHeader = document.querySelector('.active-project-header')
     let activeProject = app.getActiveProject()
@@ -145,18 +156,35 @@ const screenController = () => {
     })
   }
 
+  function _retrieveAddTaskInputs() {
+    //cache DOM
+    let taskName = document.querySelector('#task-name')
+    let date = document.querySelector('#date')
+    let taskPriority = document.querySelector('#priority')
+    let description = document.querySelector('#description')
+
+    return {
+      title:`${taskName.value}`,
+      description:`${description.value}`,
+      dueDate:date.value,
+      priority:`${taskPriority.value}`
+    }
+  }
+
+  function _submitAddTaskInputs() {
+    //activeProject.addTask
+    let inputs = _retrieveAddTaskInputs()
+    app.getActiveProject().addTask(inputs.title, inputs.description, inputs.dueDate, inputs.priority)
+    _loadTasks()
+    _closeModal()
+  }
+
+  //general functions
   function _resetInputField(input) {
     input.value = ''
   }
 
-  function _submitInput(event) {
-    if (event.keyCode === 13) {
-      event.preventDefault()
-      _addProject()
-    }
-  }
-
-  //modals
+  //modal functions
   function _openAddTaskModal() {
     let modal = document.querySelector('.add-task-modal')
     modal.classList.add('on')
