@@ -1,0 +1,15 @@
+.active {
+  color: blue;
+}
+
+.task-main, .task-info {
+  display: flex;
+}
+
+.task-main {
+  justify-content: space-between;
+}
+
+.left {
+  display: flex;
+}
