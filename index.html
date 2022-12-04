@@ -16,11 +16,22 @@
   </table>
   <input type="text" class="add-project-input">
   <button class="add-project-btn">Add Project</button>
-  <h2>Tasks</h2>
+
+  <h2 class="active-project-header"></h2>
   <div class="tasks">
-    <tr>
-      <th>Tasks</th>
-    </tr>
+    <div class="task">
+      <div class="task-main">
+        <div class="left">
+          <button class="complete-task-btn">Com</button>
+          <h3>Task Name</h3>
+        </div>
+        <button class="del-task-btn">x</button>
+      </div>
+      <div class="task-info">
+        <p>Priority</p>
+        <p>Date</p>
+      </div>
+    </div>
   </div>
 
   <script src="main.js"></script>
