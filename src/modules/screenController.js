@@ -2,14 +2,22 @@ import appController from "./appController.js"
 
 const screenController = () => {
   let app = appController()
+
   //cache DOM
   let projectsTable = document.querySelector('.projects')
   let addProjectInput = document.querySelector('.add-project-input')
   let addProjectButton = document.querySelector('.add-project-btn')
+  let addTaskButton = document.querySelector('.add-task-btn')
+  let modalOverlay = document.querySelector('.overlay')
 
   //bind events
   addProjectButton.addEventListener('click', _addProject)
   addProjectInput.addEventListener('keyup', _submitInput)
+  
+  //modal events
+  addTaskButton.addEventListener('click', _openAddTaskModal)
+  modalOverlay.addEventListener('click', _closeModal)
+
 
   function _loadProjectList() {
     _resetProjectList()
@@ -143,6 +151,19 @@ const screenController = () => {
       event.preventDefault()
       _addProject()
     }
+  }
+
+  //modals
+  function _openAddTaskModal() {
+    let modal = document.querySelector('.add-task-modal')
+    modal.classList.add('on')
+    modalOverlay.classList.add('on')
+  }
+
+  function _closeModal() {
+    let modal = document.querySelector('.modal.on')
+    modal.classList.remove('on')
+    modalOverlay.classList.remove('on')
   }
 
   _loadProjectList()
