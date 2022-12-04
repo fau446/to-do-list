@@ -38,8 +38,8 @@ const screenController = () => {
     let projects = app.getProjects()
     projects.forEach((project, index) => {
       if (project.name === activeProject.name) {
-        let hello = document.querySelector(`[data-index-number="${index}"]`)
-        hello.classList.add('active')
+        let activeDOMElement = document.querySelector(`[data-index-number="${index}"]`)
+        activeDOMElement.classList.add('active')
       }
     })
   }
@@ -52,9 +52,9 @@ const screenController = () => {
   }
 
   function _makeActiveProject() {
-    console.log(`makeActiveProject: ${app.getProjects()[this.dataset.indexNumber]}`)
     app.switchActiveProject(app.getProjects()[this.dataset.indexNumber])
     _loadProjectList()
+    _loadTasks()
   }
 
   function _addProject() {
@@ -83,6 +83,57 @@ const screenController = () => {
     _loadProjectList()
   }
 
+  function _loadTasks() {
+    let projectNameHeader = document.querySelector('.active-project-header')
+    let activeProject = app.getActiveProject()
+    projectNameHeader.innerText = activeProject.name
+    
+    _resetTasks()
+    _createTasksDOM()
+    
+  }
+
+  function _resetTasks() {
+    let tasks = document.querySelector('.tasks')
+    tasks.innerHTML = ''
+  }
+
+  function _createTasksDOM() {
+    let activeProject = app.getActiveProject()
+    let tasksDiv = document.querySelector('.tasks')
+
+    activeProject.getTasks().forEach((task) => {
+      let taskDiv = document.createElement('div')
+      taskDiv.classList.add('task')
+      let taskMain = document.createElement('div')
+      taskMain.classList.add('task-main')
+      let left = document.createElement('div')
+      left.classList.add('left')
+      let completeButton = document.createElement('button')
+      completeButton.classList.add('complete-task-btn')
+      let taskName = document.createElement('h3')
+      taskName.innerText = task.title
+      let delTaskButton = document.createElement('button')
+      delTaskButton.classList.add('del-task-btn')
+      let taskInfo = document.createElement('div')
+      taskInfo.classList.add('task-info')
+      let taskPriority = document.createElement('p')
+      taskPriority.innerText = task.priority
+      let taskDate = document.createElement('p')
+      taskDate.innerText = task.dueDate
+
+      left.appendChild(completeButton)
+      left.appendChild(taskName)
+      taskMain.appendChild(left)
+      taskMain.appendChild(delTaskButton)
+      taskInfo.appendChild(taskPriority)
+      taskInfo.appendChild(taskDate)
+      taskDiv.appendChild(taskMain)
+      taskDiv.appendChild(taskInfo)
+      tasksDiv.appendChild(taskDiv)
+    })
+  }
+
   function _resetInputField(input) {
     input.value = ''
   }
@@ -95,6 +146,7 @@ const screenController = () => {
   }
 
   _loadProjectList()
+  _loadTasks()
 }
 
 export default screenController
