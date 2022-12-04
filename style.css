@@ -13,3 +13,35 @@
 .left {
   display: flex;
 }
+
+.modal {
+/*   width: 500px;
+  padding: 20px 0;
+  border-radius: 5px; */
+  background: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  z-index: 10;
+}
+
+.modal.on {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.overlay {
+  position: fixed;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.overlay.on {
+  opacity: 1;
+  pointer-events: all;
+}
