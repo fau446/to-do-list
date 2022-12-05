@@ -136,7 +136,9 @@ const screenController = () => {
       let taskName = document.createElement('h3')
       taskName.innerText = task.title
       taskName.dataset.modal = 'edit'
-      taskName.onclick = _openModal
+      taskName.dataset.indexNumber = index
+      //
+      taskName.onclick = _loadEditTaskDetails
       let delTaskButton = document.createElement('button')
       delTaskButton.classList.add('del-task-btn')
       delTaskButton.innerText = 'x'
@@ -210,10 +212,34 @@ const screenController = () => {
     modalOverlay.classList.add('on')
   }
 
+  function _openEditModal() {
+    let modal = document.querySelector(`.edit-task-modal`)
+    modal.classList.add('on')
+    modalOverlay.classList.add('on')
+  }
+
   function _closeModal() {
     let modal = document.querySelector('.modal.on')
     modal.classList.remove('on')
     modalOverlay.classList.remove('on')
+  }
+
+  function _loadEditTaskDetails() {
+    let taskNameEdit = document.querySelector('#task-name-edit')
+    let dateEdit = document.querySelector('#date-edit')
+    let priorityEdit = document.querySelector('#priority-edit')
+    let descriptionEdit = document.querySelector('#description-edit')
+
+    let taskIndex = this.dataset.indexNumber
+    let task = app.getActiveProject().getTasks()[taskIndex]
+    console.log(task)
+
+    taskNameEdit.value = task.title
+    dateEdit.value = task.dueDate
+    priorityEdit.value = task.priority
+    descriptionEdit.value = task.description
+    
+    _openEditModal()
   }
 
   _loadProjectList()
