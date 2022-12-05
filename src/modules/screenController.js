@@ -76,7 +76,7 @@ const screenController = () => {
     if (newProjectName === '' || _checkDuplicateProject(newProjectName)) return
     app.createProject(newProjectName)
     _loadProjectList()
-    _resetInputField(addProjectInput)
+    _resetInputFields([addProjectInput])
   }
 
   function _checkDuplicateProject(newProjectName) {
@@ -171,10 +171,7 @@ const screenController = () => {
     let taskPriorityValue = taskPriority.value
     let descriptionValue = description.value
 
-    _resetInputField(taskName)
-    _resetInputField(date)
-    _resetInputField(taskPriority)
-    _resetInputField(description)
+    _resetInputFields([taskName, date, taskPriority, description])
 
     return {
       title:`${taskNameValue}`,
@@ -198,8 +195,10 @@ const screenController = () => {
   }
 
   //general functions
-  function _resetInputField(input) {
-    input.value = ''
+  function _resetInputFields(inputs) {
+    inputs.forEach((input) => {
+      input.value = ''
+    })
   }
 
   //modal functions
