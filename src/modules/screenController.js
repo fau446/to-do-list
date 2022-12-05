@@ -17,7 +17,7 @@ const screenController = () => {
   addProjectInput.addEventListener('keyup', _submitProjectInput)
   
   //modal events
-  addTaskButton.addEventListener('click', _openAddTaskModal)
+  addTaskButton.addEventListener('click', _openModal)
   addTaskSubmitButton.addEventListener('click', _submitAddTaskInputs)
   modalOverlay.addEventListener('click', _closeModal)
   closeModalButtons.forEach((button) => {
@@ -135,6 +135,8 @@ const screenController = () => {
       completeButton.classList.add('complete-task-btn')
       let taskName = document.createElement('h3')
       taskName.innerText = task.title
+      taskName.dataset.modal = 'detail'
+      taskName.onclick = _openModal
       let delTaskButton = document.createElement('button')
       delTaskButton.classList.add('del-task-btn')
       delTaskButton.innerText = 'x'
@@ -202,8 +204,8 @@ const screenController = () => {
   }
 
   //modal functions
-  function _openAddTaskModal() {
-    let modal = document.querySelector('.add-task-modal')
+  function _openModal() {
+    let modal = document.querySelector(`.${this.dataset.modal}-task-modal`)
     modal.classList.add('on')
     modalOverlay.classList.add('on')
   }
