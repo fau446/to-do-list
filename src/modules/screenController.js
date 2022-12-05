@@ -135,7 +135,7 @@ const screenController = () => {
       completeButton.classList.add('complete-task-btn')
       let taskName = document.createElement('h3')
       taskName.innerText = task.title
-      taskName.dataset.modal = 'detail'
+      taskName.dataset.modal = 'edit'
       taskName.onclick = _openModal
       let delTaskButton = document.createElement('button')
       delTaskButton.classList.add('del-task-btn')
