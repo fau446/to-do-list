@@ -124,7 +124,7 @@ const screenController = () => {
     let activeProject = app.getActiveProject()
     let tasksDiv = document.querySelector('.tasks')
 
-    activeProject.getTasks().forEach((task) => {
+    activeProject.getTasks().forEach((task, index) => {
       let taskDiv = document.createElement('div')
       taskDiv.classList.add('task')
       let taskMain = document.createElement('div')
@@ -137,6 +137,9 @@ const screenController = () => {
       taskName.innerText = task.title
       let delTaskButton = document.createElement('button')
       delTaskButton.classList.add('del-task-btn')
+      delTaskButton.innerText = 'x'
+      delTaskButton.dataset.indexNumber = index
+      delTaskButton.onclick = _deleteTask
       let taskInfo = document.createElement('div')
       taskInfo.classList.add('task-info')
       let taskPriority = document.createElement('p')
@@ -172,11 +175,16 @@ const screenController = () => {
   }
 
   function _submitAddTaskInputs() {
-    //activeProject.addTask
     let inputs = _retrieveAddTaskInputs()
     app.getActiveProject().addTask(inputs.title, inputs.description, inputs.dueDate, inputs.priority)
     _loadTasks()
     _closeModal()
+  }
+
+  function _deleteTask() {
+    let activeProject = app.getActiveProject()
+    activeProject.delTask(this.dataset.indexNumber)
+    _loadTasks()
   }
 
   //general functions
