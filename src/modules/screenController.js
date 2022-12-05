@@ -166,11 +166,21 @@ const screenController = () => {
     let taskPriority = document.querySelector('#priority')
     let description = document.querySelector('#description')
 
+    let taskNameValue = taskName.value
+    let dateValue = date.value
+    let taskPriorityValue = taskPriority.value
+    let descriptionValue = description.value
+
+    _resetInputField(taskName)
+    _resetInputField(date)
+    _resetInputField(taskPriority)
+    _resetInputField(description)
+
     return {
-      title:`${taskName.value}`,
-      description:`${description.value}`,
-      dueDate:date.value,
-      priority:`${taskPriority.value}`
+      title:`${taskNameValue}`,
+      description:`${descriptionValue}`,
+      dueDate:dateValue,
+      priority:`${taskPriorityValue}`
     }
   }
 
