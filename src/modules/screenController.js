@@ -18,7 +18,6 @@ const screenController = () => {
   //bind events
   addProjectButton.addEventListener('click', _addProject)
   addProjectInput.addEventListener('keyup', _submitProjectInput)
-  //editTaskSubmitButton.addEventListener('click', )
   
   //modal events
   addTaskButton.addEventListener('click', _loadAddTaskModal)
@@ -219,7 +218,7 @@ const screenController = () => {
     modalTitle.innerText = 'Add Task'
     let submitButton = document.querySelector('.submit')
     submitButton.innerText = 'Add'
-    submitButton.removeEventListener('click', test)
+    submitButton.removeEventListener('click', _editTask)
     submitButton.addEventListener('click', _submitAddTaskInputs)
     _resetInputFields([taskNameInput, dateInput, taskPriorityInput, descriptionInput])
     _openModal()
@@ -231,14 +230,26 @@ const screenController = () => {
     modalTitle.innerText = 'Edit Task'
     let submitButton = document.querySelector('.submit')
     submitButton.innerText = 'Confirm Changes'
+    submitButton.dataset.indexNumber = index
     submitButton.removeEventListener('click', _submitAddTaskInputs)
-    //submitButton.addEventListener('click', test)
+    submitButton.addEventListener('click', _editTask)
     _openModal()
     _loadEditTaskInputValues(index)
   }
 
-  function _loadEditTaskInputValues(index) {
+  function _editTask() {
+    let task = app.getActiveProject().getTasks()[+this.dataset.indexNumber]
 
+    task.title = taskNameInput.value
+    task.description = descriptionInput.value
+    task.dueDate = dateInput.value
+    task.priority = taskPriorityInput.value
+
+    _loadTasks()
+    _closeModal()
+  }
+
+  function _loadEditTaskInputValues(index) {
     let task = app.getActiveProject().getTasks()[index]
 
     taskNameInput.value = task.title
