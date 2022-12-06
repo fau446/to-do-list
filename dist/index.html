@@ -8,19 +8,31 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>Project List</h2>
-  <table class="projects">
-    <tr>
-      <th>Projects</th>
-    </tr>
-  </table>
-  <input type="text" class="add-project-input">
-  <button class="add-project-btn">Add Project</button>
+  <header>
+    <h1>To-Do-List</h1>
+  </header>
 
-  <h2 class="active-project-header"></h2>
-  <button class="add-task-btn" data-modal="add">Add Task</button>
-  <div class="tasks">
+  <div class="sidebar">
+    <h2>Projects</h2>
+    <table class="projects">
+      <tr>
+        <th>Projects</th>
+      </tr>
+    </table>
+    <input type="text" class="add-project-input">
+    <button class="add-project-btn">Add Project</button>
   </div>
+
+  <main>
+    <h2 class="active-project-header"></h2>
+    <button class="add-task-btn" data-modal="add">Add Task</button>
+    <div class="tasks">
+    </div>
+  </main>
+
+  <footer>
+    <p>Footer</p>
+  </footer>
 
   <div class="modal">
     <div class="modal-header">
