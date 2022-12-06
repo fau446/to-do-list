@@ -31,7 +31,7 @@ const screenController = () => {
     _resetProjectList()
     let projects = app.getProjects()
     projects.forEach((project, index) => {
-      let tableRow = projectsTable.insertRow(index + 1)
+      let tableRow = projectsTable.insertRow(index)
 
       let projectItem = document.createElement('button')
       projectItem.onclick = _makeActiveProject
@@ -61,7 +61,7 @@ const screenController = () => {
 
   function _resetProjectList() {
     let rowCount = projectsTable.rows.length
-    for (let i = rowCount - 1; i > 0; i--) {
+    for (let i = rowCount - 1; i >= 0; i--) {
       projectsTable.deleteRow(i)
     }
   }
