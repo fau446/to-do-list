@@ -8,17 +8,20 @@ const screenController = () => {
   let addProjectInput = document.querySelector('.add-project-input')
   let addProjectButton = document.querySelector('.add-project-btn')
   let addTaskButton = document.querySelector('.add-task-btn')
-  let addTaskSubmitButton = document.querySelector('.submit-add-task')
   let modalOverlay = document.querySelector('.overlay')
   let closeModalButtons = document.querySelectorAll('.close-modal')
+  let taskNameInput = document.querySelector('#task-name')
+  let dateInput = document.querySelector('#date')
+  let taskPriorityInput = document.querySelector('#priority')
+  let descriptionInput = document.querySelector('#description')
 
   //bind events
   addProjectButton.addEventListener('click', _addProject)
   addProjectInput.addEventListener('keyup', _submitProjectInput)
+  //editTaskSubmitButton.addEventListener('click', )
   
   //modal events
-  addTaskButton.addEventListener('click', _openModal)
-  addTaskSubmitButton.addEventListener('click', _submitAddTaskInputs)
+  addTaskButton.addEventListener('click', _loadAddTaskModal)
   modalOverlay.addEventListener('click', _closeModal)
   closeModalButtons.forEach((button) => {
     button.addEventListener('click', _closeModal)
@@ -28,7 +31,6 @@ const screenController = () => {
   function _loadProjectList() {
     _resetProjectList()
     let projects = app.getProjects()
-    console.log(projects)
     projects.forEach((project, index) => {
       let tableRow = projectsTable.insertRow(index + 1)
 
@@ -138,7 +140,7 @@ const screenController = () => {
       taskName.dataset.modal = 'edit'
       taskName.dataset.indexNumber = index
       //
-      taskName.onclick = _loadEditTaskDetails
+      taskName.onclick = _loadEditTaskModal
       let delTaskButton = document.createElement('button')
       delTaskButton.classList.add('del-task-btn')
       delTaskButton.innerText = 'x'
@@ -164,18 +166,12 @@ const screenController = () => {
   }
 
   function _retrieveAddTaskInputs() {
-    //cache DOM
-    let taskName = document.querySelector('#task-name')
-    let date = document.querySelector('#date')
-    let taskPriority = document.querySelector('#priority')
-    let description = document.querySelector('#description')
+    let taskNameValue = taskNameInput.value
+    let dateValue = dateInput.value
+    let taskPriorityValue = taskPriorityInput.value
+    let descriptionValue = descriptionInput.value
 
-    let taskNameValue = taskName.value
-    let dateValue = date.value
-    let taskPriorityValue = taskPriority.value
-    let descriptionValue = description.value
-
-    _resetInputFields([taskName, date, taskPriority, description])
+    _resetInputFields([taskNameInput, dateInput, taskPriorityInput, descriptionInput])
 
     return {
       title:`${taskNameValue}`,
@@ -186,8 +182,8 @@ const screenController = () => {
   }
 
   function _submitAddTaskInputs() {
-    let inputs = _retrieveAddTaskInputs()
-    app.getActiveProject().addTask(inputs.title, inputs.description, inputs.dueDate, inputs.priority)
+    let inputValues = _retrieveAddTaskInputs()
+    app.getActiveProject().addTask(inputValues.title, inputValues.description, inputValues.dueDate, inputValues.priority)
     _loadTasks()
     _closeModal()
   }
@@ -207,39 +203,48 @@ const screenController = () => {
 
   //modal functions
   function _openModal() {
-    let modal = document.querySelector(`.${this.dataset.modal}-task-modal`)
-    modal.classList.add('on')
-    modalOverlay.classList.add('on')
-  }
-
-  function _openEditModal() {
-    let modal = document.querySelector(`.edit-task-modal`)
+    let modal = document.querySelector('.modal')
     modal.classList.add('on')
     modalOverlay.classList.add('on')
   }
 
   function _closeModal() {
-    let modal = document.querySelector('.modal.on')
+    let modal = document.querySelector('.modal')
     modal.classList.remove('on')
     modalOverlay.classList.remove('on')
   }
 
-  function _loadEditTaskDetails() {
-    let taskNameEdit = document.querySelector('#task-name-edit')
-    let dateEdit = document.querySelector('#date-edit')
-    let priorityEdit = document.querySelector('#priority-edit')
-    let descriptionEdit = document.querySelector('#description-edit')
+  function _loadAddTaskModal() {
+    let modalTitle = document.querySelector('.modal-title')
+    modalTitle.innerText = 'Add Task'
+    let submitButton = document.querySelector('.submit')
+    submitButton.innerText = 'Add'
+    submitButton.removeEventListener('click', test)
+    submitButton.addEventListener('click', _submitAddTaskInputs)
+    _resetInputFields([taskNameInput, dateInput, taskPriorityInput, descriptionInput])
+    _openModal()
+  }
 
-    let taskIndex = this.dataset.indexNumber
-    let task = app.getActiveProject().getTasks()[taskIndex]
-    console.log(task)
+  function _loadEditTaskModal() {
+    let modalTitle = document.querySelector('.modal-title')
+    let index = this.dataset.indexNumber
+    modalTitle.innerText = 'Edit Task'
+    let submitButton = document.querySelector('.submit')
+    submitButton.innerText = 'Confirm Changes'
+    submitButton.removeEventListener('click', _submitAddTaskInputs)
+    //submitButton.addEventListener('click', test)
+    _openModal()
+    _loadEditTaskInputValues(index)
+  }
 
-    taskNameEdit.value = task.title
-    dateEdit.value = task.dueDate
-    priorityEdit.value = task.priority
-    descriptionEdit.value = task.description
-    
-    _openEditModal()
+  function _loadEditTaskInputValues(index) {
+
+    let task = app.getActiveProject().getTasks()[index]
+
+    taskNameInput.value = task.title
+    dateInput.value = task.dueDate
+    taskPriorityInput.value = task.priority
+    descriptionInput.value = task.description
   }
 
   _loadProjectList()
