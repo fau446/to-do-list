@@ -40,7 +40,7 @@ const screenController = () => {
 
       let deleteButton = document.createElement('button')
       deleteButton.onclick = _deleteProject
-      deleteButton.innerText = 'Delete'
+      deleteButton.innerText = 'x'
 
       tableRow.appendChild(projectItem)
       tableRow.appendChild(deleteButton)
