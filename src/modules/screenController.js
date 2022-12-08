@@ -130,6 +130,57 @@ const screenController = () => {
       taskDiv.classList.add('task')
       let taskMain = document.createElement('div')
       taskMain.classList.add('task-main')
+      /*
+      let left = document.createElement('div')
+      left.classList.add('left')
+      */
+      let completeButton = document.createElement('button')
+      completeButton.classList.add('complete-task-btn')
+      let taskName = document.createElement('h3')
+      taskName.innerText = task.title
+      taskName.dataset.modal = 'edit'
+      taskName.dataset.indexNumber = index
+      //
+      taskName.onclick = _loadEditTaskModal
+      let delTaskButton = document.createElement('button')
+      delTaskButton.classList.add('del-task-btn')
+      delTaskButton.innerText = 'x'
+      delTaskButton.dataset.indexNumber = index
+      delTaskButton.onclick = _deleteTask
+      let taskInfo = document.createElement('div')
+      taskInfo.classList.add('task-info')
+      let taskMisc = document.createElement('div')
+      taskMisc.classList.add('task-misc')
+      let taskPriority = document.createElement('p')
+      taskPriority.innerText = task.priority
+      let taskDate = document.createElement('p')
+      taskDate.innerText = task.dueDate
+
+      taskMisc.appendChild(taskPriority)
+      taskMisc.appendChild(taskDate)
+
+      taskInfo.appendChild(taskName)
+      taskInfo.appendChild(taskMisc)
+
+      taskMain.appendChild(taskInfo)
+      taskMain.appendChild(delTaskButton)
+
+      taskDiv.appendChild(completeButton)
+      taskDiv.appendChild(taskMain)
+
+      tasksDiv.appendChild(taskDiv)
+    })
+  }
+/*
+  function _createTasksDOM() {
+    let activeProject = app.getActiveProject()
+    let tasksDiv = document.querySelector('.tasks')
+
+    activeProject.getTasks().forEach((task, index) => {
+      let taskDiv = document.createElement('div')
+      taskDiv.classList.add('task')
+      let taskMain = document.createElement('div')
+      taskMain.classList.add('task-main')
       let left = document.createElement('div')
       left.classList.add('left')
       let completeButton = document.createElement('button')
@@ -163,7 +214,7 @@ const screenController = () => {
       tasksDiv.appendChild(taskDiv)
     })
   }
-
+*/
   function _retrieveAddTaskInputs() {
     let taskNameValue = taskNameInput.value
     let dateValue = dateInput.value
