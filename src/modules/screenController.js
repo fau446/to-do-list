@@ -130,17 +130,15 @@ const screenController = () => {
       taskDiv.classList.add('task')
       let taskMain = document.createElement('div')
       taskMain.classList.add('task-main')
-      /*
-      let left = document.createElement('div')
-      left.classList.add('left')
-      */
       let completeButton = document.createElement('button')
+      completeButton.onclick = _toggleCompleteTask
       completeButton.classList.add('complete-task-btn')
+      if (task.complete) completeButton.classList.add('complete')
+      completeButton.dataset.indexNumber = index
       let taskName = document.createElement('h3')
       taskName.innerText = task.title
       taskName.dataset.modal = 'edit'
       taskName.dataset.indexNumber = index
-      //
       taskName.onclick = _loadEditTaskModal
       let delTaskButton = document.createElement('button')
       delTaskButton.classList.add('del-task-btn')
@@ -171,50 +169,7 @@ const screenController = () => {
       tasksDiv.appendChild(taskDiv)
     })
   }
-/*
-  function _createTasksDOM() {
-    let activeProject = app.getActiveProject()
-    let tasksDiv = document.querySelector('.tasks')
 
-    activeProject.getTasks().forEach((task, index) => {
-      let taskDiv = document.createElement('div')
-      taskDiv.classList.add('task')
-      let taskMain = document.createElement('div')
-      taskMain.classList.add('task-main')
-      let left = document.createElement('div')
-      left.classList.add('left')
-      let completeButton = document.createElement('button')
-      completeButton.classList.add('complete-task-btn')
-      let taskName = document.createElement('h3')
-      taskName.innerText = task.title
-      taskName.dataset.modal = 'edit'
-      taskName.dataset.indexNumber = index
-      //
-      taskName.onclick = _loadEditTaskModal
-      let delTaskButton = document.createElement('button')
-      delTaskButton.classList.add('del-task-btn')
-      delTaskButton.innerText = 'x'
-      delTaskButton.dataset.indexNumber = index
-      delTaskButton.onclick = _deleteTask
-      let taskInfo = document.createElement('div')
-      taskInfo.classList.add('task-info')
-      let taskPriority = document.createElement('p')
-      taskPriority.innerText = task.priority
-      let taskDate = document.createElement('p')
-      taskDate.innerText = task.dueDate
-
-      left.appendChild(completeButton)
-      left.appendChild(taskName)
-      taskMain.appendChild(left)
-      taskMain.appendChild(delTaskButton)
-      taskInfo.appendChild(taskPriority)
-      taskInfo.appendChild(taskDate)
-      taskDiv.appendChild(taskMain)
-      taskDiv.appendChild(taskInfo)
-      tasksDiv.appendChild(taskDiv)
-    })
-  }
-*/
   function _retrieveAddTaskInputs() {
     let taskNameValue = taskNameInput.value
     let dateValue = dateInput.value
@@ -242,6 +197,18 @@ const screenController = () => {
     let activeProject = app.getActiveProject()
     activeProject.delTask(this.dataset.indexNumber)
     _loadTasks()
+  }
+
+  function _toggleCompleteTask() {
+    let index = this.dataset.indexNumber
+    
+    if (this.classList.contains('complete')) {
+      this.classList.remove('complete')
+    } else {
+      this.classList.add('complete')
+    }
+
+    app.getActiveProject().toggleTaskCompletion(index)
   }
 
   //general functions
