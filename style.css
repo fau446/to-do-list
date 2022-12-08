@@ -1,5 +1,3 @@
-/*  */
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -11,6 +9,14 @@ body {
   display: grid;
   grid-template-rows: 2fr 15fr 1fr;
   grid-template-columns: 1fr 4fr;
+}
+
+button {
+  cursor: pointer;
+  font-size: 1.3rem;
+  border: none;
+  background: none;
+  color: rgb(73, 73, 73);
 }
 
 header {
@@ -27,8 +33,68 @@ h1 {
   color: white;
 }
 
+h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  margin: 0 0 15px 0;
+}
+
+
+/* Sidebar Styling */
 .sidebar {
   background: rgb(240, 238, 238);
+  max-width: 100%;
+  padding: 20px;
+}
+
+.sidebar-top {
+  background: rgb(240, 238, 238);
+  margin: 0 0 15px 0;
+}
+
+.sidebar-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 20px;
+  max-width: 100%;
+}
+
+.sidebar-input input {
+  width: 150px;
+  height: 30px;
+  font-size: 0.9rem;
+  padding: 0 5px;
+}
+
+.add-project-btn {
+  background: #59f30c;
+  color: white;
+  border-radius: 30px;
+  padding: 5px;
+}
+
+.projects {
+  width: 100%;
+  height: calc(100% - 200px);
+}
+
+tr {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 10px 0;
+}
+
+tr button:first-child {
+  width: 90%;
+  text-align: left;
+}
+
+tbody {
+  display: block;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 main {
@@ -41,7 +107,8 @@ footer {
 }
 
 .active {
-  color: blue;
+  color: #59f30c;
+  font-weight: bold;
 }
 
 .task-main, .task-info {
