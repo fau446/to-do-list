@@ -229,7 +229,13 @@ textarea {
 }
 
 
+/* Footer Styling */
 footer {
-  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: #59f30c;
+  color: white;
   grid-column: 1 / 3;
 }
