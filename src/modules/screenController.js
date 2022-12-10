@@ -189,6 +189,8 @@ const screenController = () => {
   function _submitAddTaskInputs() {
     let inputValues = _retrieveAddTaskInputs()
     app.getActiveProject().addTask(inputValues.title, inputValues.description, inputValues.dueDate, inputValues.priority)
+
+    app.saveProjects()
     _loadTasks()
     _closeModal()
   }
@@ -196,6 +198,8 @@ const screenController = () => {
   function _deleteTask() {
     let activeProject = app.getActiveProject()
     activeProject.delTask(this.dataset.indexNumber)
+
+    app.saveProjects()
     _loadTasks()
   }
 
@@ -209,6 +213,7 @@ const screenController = () => {
     }
 
     app.getActiveProject().toggleTaskCompletion(index)
+    app.saveProjects()
   }
 
   //general functions
@@ -263,6 +268,7 @@ const screenController = () => {
     task.dueDate = dateInput.value
     task.priority = taskPriorityInput.value
 
+    app.saveProjects()
     _loadTasks()
     _closeModal()
   }
