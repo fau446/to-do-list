@@ -2,13 +2,14 @@ import project from "./project.js"
 
 const appController = () => {
   let projects = []
+  let activeProject
 
-  //only if there is no save file. Otherwise, activeProject = first project in array
-  let activeProject = project('Default')
-  projects.push(activeProject)
-  //
-
-  //test
+  if (localStorage.getItem('savedProjects') === null) {
+    activeProject = project('Default')
+    projects.push(activeProject)
+  } else {
+    loadProjects()
+  }
 
   function saveProjects() {
     localStorage.setItem('savedProjects', 
@@ -16,23 +17,21 @@ const appController = () => {
     )
   }
 
-  function getProjectsArr() {
+  function loadProjects() {
     let projectsArr = JSON.parse(localStorage.getItem('savedProjects'))
-    console.log(projectsArr)
 
-    projectsArr['projects'].forEach((obj, index) => {
-      console.log(obj['name'])
-      obj['tasks'].forEach((task, index) => {
-        console.log(task['title'])
-        console.log(task['description'])
-        console.log(task['dueDate'])
-        console.log(task['priority'])
-        console.log(task['complete'])
+    projectsArr['projects'].forEach((obj) => {
+      let newProject = project(obj['name'])
+
+      obj['tasks'].forEach((task) => {
+        newProject.addTask(task['title'], task['description'], task['dueDate'], task['priority'], task['complete'])
       })
 
+      projects.push(newProject)
+      activeProject = projects[0]
     })
   }
-  //
+
 
   function createProject(name) {
     let newProject = project(name)
@@ -64,7 +63,7 @@ const appController = () => {
     getActiveProject,
     getProjects,
     saveProjects,
-    getProjectsArr
+    loadProjects
   }
 }
 
