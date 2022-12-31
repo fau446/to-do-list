@@ -11,7 +11,8 @@ body {
   grid-template-columns: 1fr 4fr;
 }
 
-h3, button {
+h3,
+button {
   cursor: pointer;
 }
 
@@ -60,10 +61,11 @@ h2 {
   align-items: center;
   height: 20px;
   max-width: 100%;
+  gap: 15px;
 }
 
 .sidebar-input input {
-  width: 150px;
+  width: 100%;
   height: 30px;
   font-size: 0.9rem;
   padding: 0 5px;
@@ -104,7 +106,6 @@ tbody {
   font-weight: bold;
 }
 
-
 /* Main Styling */
 main {
   background: whitesmoke;
@@ -130,14 +131,17 @@ main {
   background: #59f30c;
 }
 
-.task, .task-main, .task-info, .task-misc {
+.task,
+.task-main,
+.task-info,
+.task-misc {
   display: flex;
 }
 
 .task {
   align-items: center;
   gap: 20px;
-  border-bottom: 1px solid #C6C6C6;
+  border-bottom: 1px solid #c6c6c6;
   padding: 5px 0;
 }
 
@@ -208,7 +212,8 @@ label {
   font-size: 1.2rem;
 }
 
-.form-row input, select {
+.form-row input,
+select {
   height: 30px;
   padding: 0 5px;
 }
@@ -227,7 +232,6 @@ textarea {
   border-radius: 30px;
   padding: 5px 10px;
 }
-
 
 /* Footer Styling */
 footer {
